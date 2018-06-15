@@ -1,0 +1,33 @@
+RewriteEngine On
+
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+#RewriteRule ^ https://www.%1%{REQUEST_URI} [L,NE,R=301]
+#
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+#
+#RewriteCond %{HTTP_HOST} ^www.gcrcloud.in [NC]
+#RewriteRule ^(.*)$  http://www.gcrcloud.co.in/$1 [L,R=301,NC]
+
+#Redirect 301 http://www.gcrcloud.co.in/index.php http://www.gcrcloud.co.in
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(css|js|images|img|storage|plugins|fonts|pages)/(.*)$ public/$1/$2 [L,NC]
+
+php_value post_max_size 2000M
+php_value upload_max_filesize 2500M
+php_value max_execution_time 6000000
+php_value max_input_time 6000000
+php_value memory_limit 2500M

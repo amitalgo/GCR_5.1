@@ -1,0 +1,55 @@
+<div class="RightSideBr">
+    <h1>News</h1>
+    <div class="clearfix"></div>
+	
+	
+	 
+	<div class="setPos">
+		<?php $seenews=0; ?>
+    <?php $__empty_1 = true; foreach($news as $new): $__empty_1 = false; ?>
+    <?php $seenews++; ?>
+	<div class="news-mar-bot">
+		<div class="new-img"><img src="<?php echo e(asset($new->thumbnail)); ?>" class="img-responsive" alt="right-side-img"></div>
+	<div class="even-text">
+		<a href="<?php echo e(route('news.list',['id'=>$new->url_slug])); ?>" target="_blank"><?php echo e(\Illuminate\Support\Str::words($new->news_heading,7,'')); ?> </a>
+	</div>
+	</div>
+	<div class="clearfix"></div>
+	<?php endforeach; if ($__empty_1): ?>
+        No News Found
+    <?php endif; ?>
+    <?php if($seenews>0): ?>
+		<div class="seebtn"><a href="<?php echo e(route('news')); ?>" target="_blank">see more</a></div>
+		<?php endif; ?>
+   </div>
+    
+		
+<div class="clearfix"></div>
+
+<div class="event">
+    <h1>Events</h1>
+    <div class="clearfix"></div>
+<div class="setPos">
+	<?php $see=0 ?>
+    <?php $__empty_1 = true; foreach($events as $event): $__empty_1 = false; ?>
+    <?php $see++ ;?>
+	<div class="news-mar-bot">
+	<div class="new-img"><img src="<?php echo e(asset($event->thumbnail)); ?>" class="img-responsive" alt="right-side-img"></div>
+    <div class="even-text">
+		<a href="<?php echo e(route('news.list',['id'=>$event->url_slug])); ?>" target="_blank"><?php echo e(\Illuminate\Support\Str::words($event->news_heading,7,'')); ?></a>
+	</div>
+    
+	</div>
+	<div class="clearfix"></div>
+	 <?php endforeach; if ($__empty_1): ?>
+        No Events Found
+    <?php endif; ?>
+		
+		<?php if($see>0): ?>
+		<span class="seebtn"><a href="<?php echo e(route('news')); ?>" target="_blank">see more</a></span>
+		<?php endif; ?>
+	</div>
+	</div>
+ 
+   
+</div>

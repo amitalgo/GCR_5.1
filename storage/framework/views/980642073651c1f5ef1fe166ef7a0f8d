@@ -1,0 +1,153 @@
+<?php use \App\Http\Controllers\Admin\LandingPageController; ?>
+        <?php /*<?php echo e(dd($page)); ?>*/ ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="description" content="<?php echo e($page->getMetaDescription()); ?>">
+    <meta name="keywords" content="<?php echo e($page->getMetaKey()); ?>">
+    <meta name="author" content="<?php echo e($page->getMetaTitle()); ?>">
+    <?php echo $__env->make('front-end.include.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</head>
+<style>
+    .main-login .form-group p{ color:#fff;}
+</style>
+<body>
+
+<!--- Banner Section ---->
+<section>
+    <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+
+        <div class="upper-container">
+            <div class="container">
+                <div class="col-md-2 col-sm-2 mobPdn">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse.collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="navbar-brand">
+                            <a href="<?php echo e(route('home')); ?>">
+                                <img src="<?php echo e(asset('images/front-images/logo.png')); ?>" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-sm-8 col-xs-12 mobPdn">
+                    <div class="navbar-collapse collapse">
+                        <div class="menu">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation"><a href="<?php echo e(route('home')); ?>" class="active">Home</a></li>
+                                <li role="presentation"><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
+                                <li role="presentation"><a href="<?php echo e(route('about-GCR')); ?>">About GCR</a></li>
+                                <li role="presentation"><a href="<?php echo e(route('support')); ?>">Support</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-inner">
+            <?php $loop=0; ?>
+            <?php foreach($page->getLandingPageBannerId()->getLandingBannerImages() as $banner): ?>
+
+            <div class="item slides slidess <?php if($loop==0): ?> active <?php endif; ?>" style=" background-image:url(<?php echo e(asset($banner->getMediaUrl())); ?>) ;">
+                <div class="hero">
+                    <hgroup>
+                        <h1><?php echo e($banner->getTitle()); ?></h1>
+                        <h3><?php echo e($banner->getDescription()); ?></h3>
+                    </hgroup>
+                    <?php if($banner->getShowButton()): ?>
+                    <button onclick="location.href='<?php echo e($banner->getButtonUrl()); ?>'" class="btn btn-hero btn-lg" role="button"><?php echo e($banner->getButtonText()); ?></button>
+                        <?php endif; ?>
+                </div>
+            </div>
+                <?php $loop++; ?>
+                <?php endforeach; ?>
+        </div>
+
+        <ol class="carousel-indicators">
+            <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#bs-carousel" data-slide-to="1"></li>
+            <li data-target="#bs-carousel" data-slide-to="2"></li>
+        </ol>
+    </div>
+</section>
+
+<!--- Banner Section End ---->
+<div class="clearfix"></div>
+
+
+<!--- Product Name  ---->
+<section>
+    <div class="container">
+        <div class="col-md-8">
+            <div class="landCorsl">
+                <?php echo $content; ?>
+
+            </div>
+        </div>
+        <!--- Product Name Ended ---->
+
+        <!--- Contact Form ---->
+        
+
+        <!--- Contact Form ---->
+	
+</div>
+<div class="col-md-4 hidden-xs">
+            <div id="blog-sidebar" data-spy="" class="" data-offset-top="80" >
+                <div class="main-login main-center" id="boxscroll">
+                    <h3>Contact Form</h3>
+                    <?php echo $__env->make('front-end.form.contactForm', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
+            </div>
+        </div>
+</section>
+<footer>
+    <div class="footer2">
+        <div class="container">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="social-foot">
+                    <ul class="social-bottom">
+                        <li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <span>&copy; 2018 GCR</span>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<?php echo $__env->make('front-end.include.jsLib', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+<script type="text/javascript">
+
+
+        $(document).ready(function() {
+
+            var nice = $("html").niceScroll();  // The document page (body)
+
+            $("#div1").html($("#div1").html()+' '+nice.version);
+
+            $("#boxscroll").niceScroll({cursorborder:"",cursorcolor:"#fff"}); // First scrollable DIV
+
+            $('.scroller').scrollify();
+        });
+
+
+</script>
+
+</body>
+
+</html>

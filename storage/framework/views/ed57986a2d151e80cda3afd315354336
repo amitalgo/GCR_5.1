@@ -1,0 +1,136 @@
+<?php $__env->startSection('title','GCR-Cloud | Product'); ?>
+<?php $__env->startSection('banner-image',asset($banner['banner'])); ?>
+<?php $__env->startSection('content'); ?>
+
+<div class="loader"></div>
+    <div class="container">
+	<!--<div class="flt">-->
+	<!--	<h2>Products</h2>-->
+	<!--<hr>-->
+	<!--</div>-->
+	<div class="row">
+		<div class="col-md-2 col-sm-2 col-xs-12"></div>
+	<div class="col-md-8 col-sm-3 col-xs-12">
+	<div class="brdCum">
+					<ul>
+						<li><a href="<?php echo e(route('home')); ?>">Home</a>/</li>
+						<li><a href="<?php echo e(isset($solutionSlug)&&null!=$solutionSlug?route('solution.index',['id'=>$solutionSlug]):route('solution.show',['id'=>$tagId])); ?>">Solutions</a>/</li>
+						<li> <?php echo e($scenarioProducts[0]->getScenarioId()->getName()); ?></li>
+					</ul>
+				</div></div>
+	<div class="col-md-2 col-sm-2 col-xs-12"></div>
+	</div>
+	
+        <div class="">
+        	<div class="col-md-2 col-sm-3 col-md-12">
+        		<!--
+        		<?php if(!$producttags->isEmpty()): ?>
+				<form class="form-horizontal" role="form" id="filterForm" action="<?php echo e(route('solution.filterproducts',['id'=>$id])); ?>" method="POST">
+					<?php echo e(csrf_field()); ?>
+
+					<div class="leftDrop">
+						<h3>Filters</h3>
+						<div class="pdn">						
+							<!-- <h4>Product</h4> --
+							<div class="checkbox">
+						          <label>
+						          	<input class="filter-checkbox-all" type="checkbox" />
+						          	<span class="cr"><i class="cr-icon fa fa-check"></i></span>
+						          		All
+						          </label>
+						     </div>
+							<?php foreach($producttags as $producttag): ?>
+								<?php if($producttag->getIsActive()): ?>
+								<div class="checkbox">
+						          <label>
+						            <input class="filter-checkbox" type="checkbox" value="<?php echo e($producttag->getId()); ?>" name="product-filter[]" <?php echo e(isset($selectedTags)&&in_array($producttag->getId(), $selectedTags)?'checked':''); ?>>
+										<span class="cr"><i class="cr-icon fa fa-check"></i></span>
+										<div class="solu">
+										<?php echo e($producttag->getTagName()); ?></div>
+									</label>
+						        </div>
+						        <?php endif; ?>
+							<?php endforeach; ?>
+						</div>
+					</div>
+					<div class="filtr-btn">
+						<button type="submit" class="btn btn-sm btn-primary pull-right filter-search">Search</button>
+					</div>
+				</form>
+				<?php endif; ?>-->
+			</div> 
+			<div class="col-md-8 col-sm-8 col-xs-12">
+				<?php if($scenarioProducts): ?>
+				    <div class="row">
+				        <div class="col-md-12"><h4><?php echo e($scenarioProducts[0]->getScenarioId()->getName()); ?></h4></div>
+				    </div>
+					<?php foreach($scenarioProducts as $scenarioProduct): ?>
+					<?php if($scenarioProduct->getProductId()->getStatus()): ?>
+						<div class="row Products">
+							<div class="col-md-4 col-sm-4 col-md-12">
+										<div class="Products">
+										<ul class="scroller">
+									<?php $__empty_1 = true; foreach($scenarioProduct->getProductId()->getProductAttachment() as $attachment): $__empty_1 = false; ?>
+										<!-- <li>
+										<a href="<?php echo e($attachment->getScenarioImg()); ?>" data-title="<?php echo e($scenarioProduct->getProductId()->getName()); ?>" >
+											<img src="<?php echo e($attachment->getScenarioImg()); ?>" class="img-responsive" alt="<?php echo e($attachment->getType()); ?>">
+										</a>
+										</li> -->
+										
+										<li data-rel="group<?php echo e($scenarioProduct->getProductId()->getId()); ?>">
+									<?php if($attachment->getType()=='video'): ?>
+										<?php $newstr = 'https://www.youtube.com/embed';?>
+										<a href="<?php echo e($newstr.substr($attachment->getUrl(), strrpos($attachment->getUrl(),'/')).'?autoplay=0&control=1'); ?>" data-title="<?php echo e($scenarioProduct->getProductId()->getName()); ?>" data-type="iframe" data-height="700px">
+											<img src="<?php echo e(asset('images/YouTube-Videos.jpg')); ?>" class="img-responsive" alt="<?php echo e($attachment->getType()); ?>">
+										</a>
+									<?php else: ?>
+										<a class="img-responsive" href="<?php echo e($attachment->getScenarioImg()); ?>" data-title="<?php echo e($scenarioProduct->getProductId()->getName()); ?>" >
+											<img src="<?php echo e($attachment->getScenarioImg()); ?>" class="img-responsive" alt="<?php echo e($attachment->getType()); ?>">
+										</a>
+									<?php endif; ?>
+								</li>
+								
+									<?php endforeach; if ($__empty_1): ?>
+									<?php endif; ?>
+										</ul>
+								</div>
+							</div>
+							
+							<div class="col-md-8 col-sm-8 col-md-12">
+								<h1><?php echo e($scenarioProduct->getProductId()->getName()); ?></h1>
+								<h2>By <?php echo e($scenarioProduct->getProductId()->getVender()); ?></h2>
+                                <?php $description = $scenarioProduct->getProductId()->getDescription().'<br/>'.$scenarioProduct->getProductId()->getExtraDescription(); ?>
+								<div class="PDesc"> <p><?php echo \Illuminate\Support\Str::words($description, 40,' ...'); ?></p>
+
+									<?php if(str_word_count($description)>40): ?>
+
+									<a type="button" href="javascript:void(0)" class="more-btn m"  data-attr="<?php echo e($description); ?>"  data-attrshort="<?php echo \Illuminate\Support\Str::words($description, 40,' ...'); ?>">more</a>
+									<?php endif; ?>
+								</div>
+								<div>
+									<button type="button" class="btn-primary inquire-btn" data-pid="<?php echo e($scenarioProduct->getProductId()->getId()); ?>"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+ Enquire Now</button>
+								</div>
+							</div>				
+						</div>	
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<div class="row">
+						<p>No products found..</p>
+					</div>
+				<?php endif; ?>
+			</div>
+			<div class="col-md-2 col-md-12 hidden-sm hidden-xs">
+				<?php echo view('front-end.component.ads',['ads'=>$ads]); ?>
+
+					</div>
+		</div>
+
+
+
+
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('front-end.layouts.frontLayout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

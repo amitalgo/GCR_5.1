@@ -1,0 +1,50 @@
+<div class="carousel slide">
+    <div class="carousel-inner">
+
+        <div class="item active mobSlide <?php if(Route::current()->getName()!='home'): ?> inBner  <?php endif; ?>" style="background-image: url(<?php echo $__env->yieldContent('banner-image'); ?>); background-size: contain;">
+            <div class="">
+                <div class="row slide-margin">
+                    <div class="col-sm-12">
+                        <div class="carousel-content">
+
+                        </div>
+						
+                    </div>
+                </div>
+
+               <!-- <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nbs-flexisel-container">
+                            <div class="nbs-flexisel-inner">
+                                <ul id="flexiselDemo3" class="nbs-flexisel-ul" style="display: block; left: -219.6px;">
+                                    <li class="nbs-flexisel-item" style="width:250px;">Efficiency</li>
+                                    <li class="nbs-flexisel-item" style="width:250px;">Enhanced Profitability </li>
+                                    <li class="nbs-flexisel-item" style="width: 250px;">Business Intelligence </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>-->
+
+                <!--<div class="row">
+                    <div class="col-sm-12 col-md-12 pdn-left pdn-right">
+                        <?php /*@isset($ads)*/ ?>
+                            <?php /*<?php foreach($ads as $ad): ?>*/ ?>
+                                <?php /*<div class="banrAd">*/ ?>
+                                    <?php /*<img src="<?php echo e(asset($ad->getImage())); ?>" class="img-responsive image">*/ ?>
+									<?php /*<div class="overlay">Add one</div>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*<?php endforeach; ?>*/ ?>
+                        <?php /*@endisset*/ ?>
+                    </div>
+                </div>-->
+            </div>
+			<!--<div class="tp-dottedoverlay yes"></div>-->
+		
+        </div>
+        <!--/.item-->
+    </div>
+    <!--/.carousel-inner-->
+</div>
+<?php /*<?php echo e(asset("images/front-images/slider/banner.png")); ?>*/ ?>

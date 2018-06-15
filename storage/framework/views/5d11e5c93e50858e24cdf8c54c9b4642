@@ -1,0 +1,142 @@
+
+<?php $__env->startSection('title'); ?>
+    <?php echo e(ucfirst(substr(Route::currentRouteName(),strpos(Route::currentRouteName(),".") + 1))); ?> | Landing Page
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <style>
+        .form-horizontal .form-group{
+            margin-right: 4px!important;
+
+        }
+    </style>
+    <div class="container">
+
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title"> <?php echo e(Ucfirst(substr(Route::currentRouteName(),strrpos(Route::currentRouteName(),'.') + 1))); ?> Landing Page </h4>
+                <p class="text-muted page-title-alt">Welcome to GCR admin panel !</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a class="btn btn-default waves-effect waves-light" href="<?php echo e(route('admin.landingpages.index')); ?>"><i class="fa fa-reply"></i> Back </a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <form class="form-horizontal" role="form" id="addForm" action="<?php if(isset($landingpage)): ?> <?php echo e(route('admin.landingpages.update',['landingpages' => $landingpage->getId()] )); ?> <?php else: ?><?php echo e(route('admin.landingpages.store')); ?> <?php endif; ?>" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <?php echo e(csrf_field()); ?>
+
+                                <?php if(isset($landingpage)): ?>
+                                    <input type="hidden" name="_method" value="PUT">
+                                <?php endif; ?>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <input class="form-control" required="required" placeholder="Title" type="text" name="title"  value="<?php if(isset($landingpage)): ?><?php echo e($landingpage->getTitle()); ?> <?php endif; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear-fix"></div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            <textarea class="form-control summernote" rows="12" name="content"><?php if(isset($landingpage)): ?><?php echo e($landingpage->getContent()); ?><?php endif; ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear-fix"></div>
+
+                                <?php if(isset($landingpage)): ?>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label text-left" for="cat">Status : </label>
+                                            <div class="col-md-6">
+                                                <div class="radio radio-success radio-inline">
+                                                    <input type="radio" id="active_1" name="active" value="1" <?php echo e($landingpage->getIsActive()?'checked':''); ?>>
+                                                    <label for="active_1">Active</label>
+                                                </div>
+                                                <div class="radio radio-danger radio-inline">
+                                                    <input type="radio" id="active_0" name="active" value="0" <?php echo e($landingpage->getIsActive()?'':'checked'); ?>>
+                                                    <label for="active_0">Inactive</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <?php endif; ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <label>Theme</label>
+                                        <select class="form-control select2" required="required" id="cat_id" name="theme">
+                                            <option value="">Choose Theme</option>
+                                            <?php foreach($themes as $theme): ?>
+                                            <option value="<?php echo e($theme->getId()); ?>" <?php if(isset($landingpage)): ?> <?php echo e($landingpage->getLandingThemeId()->getId() == $theme->getId() ? "selected=selected" : ""); ?> <?php endif; ?> ><?php echo e($theme->getName()); ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Banner</label>
+                                        <select class="form-control select2" required="required" id="cat_id" name="banner">
+                                            <option value="">Choose Banner</option>
+                                            <?php foreach($banners as $banner): ?>
+                                            <option value="<?php echo e($banner->getId()); ?>" <?php if(isset($landingpage)): ?> <?php echo e($landingpage->getLandingPageBannerId()->getId() == $banner->getId() ? "selected=selected" : ""); ?> <?php endif; ?> ><?php echo e($banner->getTitle()); ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Meta Title</label>
+                                        <input class="form-control" required="required" placeholder="Meta Title" type="text" name="meta-title"  value="<?php if(isset($landingpage)): ?><?php echo e($landingpage->getMetaTitle()); ?> <?php endif; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Meta Keyword</label>
+                                        <input class="form-control" required="required" placeholder="Meta Keyword" type="text" name="meta-keyword"  value="<?php if(isset($landingpage)): ?><?php echo e($landingpage->getMetaKey()); ?> <?php endif; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Meta Description</label>
+                                        <textarea class="form-control" rows="3" required="required" placeholder="Meta Description" name="meta-description"><?php if(isset($landingpage)): ?><?php echo e($landingpage->getMetaDescription()); ?><?php endif; ?></textarea>
+                                    </div>
+                                    <div class="form-group" style="background: #dde4e3;padding: 10px;border-radius: 5px !important;">
+                                        <label><strong>Shortcodes</strong> </label><br/>
+                                        <small>Copy and paste below shortcodes to display products</small><br/>
+                                       <small>Multiple Product</small> : <small>[product limit=4 order=DESC]</small><br/>
+                                        <small>Single Product</small> : <small>[product id=1]</small>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-default waves-effect waves-light btn-md">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+
+        })
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.adminLayouts2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

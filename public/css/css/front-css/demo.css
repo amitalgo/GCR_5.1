@@ -1,0 +1,90 @@
+
+.scroll-text {
+  border: 1px solid red;
+  width: 400px;
+  height: 4.5em;
+  overflow: hidden;
+}
+.scroll-text ul {
+  width: 800px;
+  height: 100px;
+  overflow: hidden;
+  margin: 0;
+}
+.scroll-text ul li {
+  height: 1.5em;
+}
+.scroll-img {
+  width: 95%;
+  height: 142px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.scroll-img ul {
+	height: 140px;
+  margin: 0; padding: 0;
+}
+.scroll-img ul li {
+  display: inline-block;
+  margin: 10px 0 10px 10px;
+  float: left;
+}
+
+.scroll-img ul li a img{ width:190px; height:70px; margin: 0 15px 0 15px;}
+.scroll-img a{ display:block;}
+.botitm{margin: 0 15px 0 15px; border: 0px solid #454343;}
+#demo5{ margin-top:15px;}
+#demo4.scroll-img ul,
+#demo5.scroll-img ul {
+  width: 1500px;
+}
+#demo5-btn {
+  width: 680px;
+  padding-top: 10px;
+}
+#demo6 {
+  width: 412px;
+}
+#demo6-queue {
+  width: 680px;
+}
+#demo6 p, #demo6-queue p {
+  width: 124px;
+  height: 124px;
+  background-color: lightgray;
+  font-family: 'Amaranth', sans-serif;
+  font-size: 82px;
+  text-align: center;
+  display: table-cell;
+  vertical-align:middle;
+}
+
+@media only screen and (max-width: 640px) {
+	.scroll-img ul li a img{ width:115px; height:70px; margin:0 0  0 10px;}
+	
+}
+
+
+
+
+
+/***********Left Scroll********/
+
+#news-container
+{
+	width:auto; 
+	margin: auto;
+	margin-top: 10px;
+}
+
+#news-container ul li div
+{
+	background: #ffffff;
+}
+
+.more-btn{
+  background: none !important;
+color: #008ed0 !important;
+border: 0px !important;
+padding: 0px !important;
+}

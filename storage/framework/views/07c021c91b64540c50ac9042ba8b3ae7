@@ -1,0 +1,87 @@
+<?php $__env->startSection('title'); ?>
+    <?php echo e(ucfirst(substr(Route::currentRouteName(),strpos(Route::currentRouteName(),".") + 1))); ?> | Vertical Images
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<?php /*<?php echo e(dd($vertical->getVerticalImages())); ?>*/ ?>
+    <div class="container">
+
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title"> <?php echo e(ucfirst(substr(Route::currentRouteName(),strpos(Route::currentRouteName(),".") + 1))); ?>  Vertical Images</h4>
+                <p class="text-muted page-title-alt">Welcome to GCR admin panel !</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a class="btn btn-default waves-effect waves-light" href="<?php echo e(route('admin.verticals.index')); ?>"><i class="fa fa-reply"></i> Vertical Listt</a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <form class="form-horizontal" role="form" id="addForm" action="<?php echo e(route('admin.verticals.update',['verticals' => $vertical->getId()] )); ?>" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Vertical Name</label>
+                                    <input class="form-control" required="required" placeholder="Vertical" type="text" name="vertical"  readonly="readonly" value="<?php if(isset($vertical)): ?><?php echo e($vertical->getName()); ?> <?php endif; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <?php if($vertical->getVerticalImages()): ?> <?php $images =  json_decode($vertical->getVerticalImages()->getImage(),true); ?> <?php endif; ?>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label>Tiles Image</label> <small>(Size : 300 x 300 Px)</small>
+                                        <?php echo e(csrf_field()); ?>
+
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input class="filestyle" id="banner-img" data-size="sm" placeholder="Browse Image" type="file" name="image"/>
+                                        <input type="hidden" name="image-txt" value="<?php if($vertical->getVerticalImages()): ?><?php echo e($images['tiles']); ?><?php endif; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-5" id="img-preview">
+                                        <?php if($vertical->getVerticalImages()): ?>
+                                        <img class="img-thumbnail thumb-lg" src="<?php echo e(asset($images['tiles'])); ?>" alt="">
+                                            <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Banner Image</label> <small>(Size : 846 x 300 Px)</small>
+                                        <input class="filestyle" id="banner-img-m" data-size="sm" placeholder="Browse Image" type="file" name="m-image"/>
+                                        <input type="hidden" name="m-image-txt" value="<?php if($vertical->getVerticalImages()): ?><?php echo e($images['banner']); ?><?php endif; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-7" id="img-preview">
+                                    <?php if($vertical->getVerticalImages()): ?>
+                                        <img class="img-thumbnail thumb" src="<?php echo e(asset($images['banner'])); ?>" alt="">
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear-fix"></div>
+
+
+                        <div class="row">
+                            <button type="submit" class="btn btn-default waves-effect waves-light btn-md">
+                                Submit
+                            </button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.adminLayouts2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

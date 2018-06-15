@@ -1,0 +1,23 @@
+<div class="leftSideBr">
+    <h3>INDUSTRY</h3>
+
+    <div class="leftscrol">
+
+
+
+        <div style="overflow: hidden; position: relative;" id="news-container">
+        <ul style="position: absolute; margin: 0pt; padding: 0pt; top: 0px;">
+    	    <?php foreach($verticals as $vertical): ?>
+                <li style="margin: 0pt; padding: 0pt; height:30px; display: list-item;">
+                    <div><a href="<?php echo e(route('solution.index', ['solutionId'=>$vertical->getScenarioTitleSlug()->getUrlSlug()])); ?>"><?php echo e($vertical->getName()); ?></a></div>
+                </li>
+                <?php endforeach; ?>
+    		</ul>
+    </div>
+	
+    </div>
+    <div class="clearfix"></div>
+    <h4>About GCR</h4>
+    <div class="clearfix"></div>
+    <p><?php echo e(strip_tags(\Illuminate\Support\Str::words($abouts->getDescription(), 19,' ...'))); ?> <a href="<?php echo e(route('about-GCR')); ?>" style="color:#0197d9;">Read more</a></p>
+</div>

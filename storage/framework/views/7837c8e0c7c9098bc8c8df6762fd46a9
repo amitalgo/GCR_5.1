@@ -1,0 +1,68 @@
+<?php $__env->startSection('title','Product List'); ?>
+<?php $__env->startSection('banner-image',asset($banner->getImage())); ?>
+<?php $__env->startSection('content'); ?>
+    <div class="container">
+        <!--<div class="flt">-->
+        <!--    <h2>Products</h2>-->
+        <!--<hr>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-12"></div>
+            <div class="col-md-8 col-sm-3 col-xs-12">
+                <div class="brdCum">
+                    <ul>
+                        <li><a href="<?php echo e(route('home')); ?>">Home</a>/</li>
+                        <li> Search /</li>
+                         <li> <?php echo e($slug); ?></li>
+                    </ul>
+                </div></div>
+            <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        </div>
+
+        <div class="">
+
+            <span class="col-md-10 col-sm-10 col-xs-12">
+                <?php if(empty($slugDatas['news']) && empty($slugDatas['product'])): ?>
+                    <div class="text-muted">No search results found for " <?php echo e($slug); ?>".</div>
+                    <div class="text-muted">If you are searching for anything specific and need assistance, please send us an email on <span class="text-primary">support-india@gcrcloud.com</span>.</div>
+                <?php else: ?>
+                    <div class="text-muted">Search results for "<span class="text-primary"><?php echo e($slug); ?> </span> " </div>
+                <?php if(empty($slugDatas['news'])): ?>
+                    <?php /*<div class="h2"> No Results Found In News </div>*/ ?>
+                <?php else: ?>
+                <div class="h4 text-muted"> <?php echo e(count($slugDatas['news'])); ?> result(s) found in News</div>
+                <hr/>
+                <?php foreach($slugDatas['news'] as $slug): ?>
+                    <div class="search-bottom">
+                        <a href="<?php echo e(route('news.list',['id'=>$slug->getUrlSlug()])); ?>"><strong>  <?php echo e($slug->getNewsHeading()); ?></strong></a>
+                        <p><?php echo \Illuminate\Support\Str::words(strip_tags($slug->getNewsSummary()),40,'...'); ?></p>
+                    </div>
+                <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if(empty($slugDatas['product'])): ?>
+                        <?php /*<div class="h5">  No Results Found In Product </div>*/ ?>
+                    <?php else: ?>
+                <div class="h4 text-muted"><?php echo e(count($slugDatas['product'])); ?> result(s) found in Solutions </div>
+                    <hr/>
+                <?php foreach($slugDatas['product'] as $slug): ?>
+                            <div class="search-bottom">
+                                <a href="<?php echo e(route('solution.showProduct',['id'=>$slug->getId()])); ?>"><strong>  <?php echo e($slug->getName()); ?></strong></a>
+                                <p><?php echo \Illuminate\Support\Str::words(strip_tags($slug->getDescription()),40,'...'); ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php endif; ?>
+            </div>
+            <div class="col-md-2 col-md-12 hidden-sm hidden-xs">
+                <?php echo view('front-end.component.ads',['ads'=>$ads]); ?>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('front-end.layouts.frontLayout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

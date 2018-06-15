@@ -1,0 +1,7 @@
+<div class="col-md-3">
+	<img src="<?php echo e(asset($partner->getLogo())); ?>" class="img-responsive" alt="abc">
+</div>
+<div class="col-md-9">
+	<h3><?php echo e($partner->getTitle()); ?></h3>
+	<p><?php echo $partner->getDescription(); ?></p>
+</div>

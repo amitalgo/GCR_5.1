@@ -1,0 +1,61 @@
+<div class="sidebar-inner slimscrollleft">
+    <!--- Divider -->
+    <div id="sidebar-menu">
+        <ul>
+
+            <li class="text-muted menu-title">Navigation</li>
+
+            <li class="has_sub">
+                <a href="#" class="waves-effect"><i class="fa fa-file-text"></i> <span>Pages</span> </a>
+                <ul class="list-unstyled">
+                    <?php foreach($pages as $page): ?>
+                        <li><a href="<?php echo e(url('admin/page/'.$page->link)); ?>"><?php echo e($page->name); ?></a></li>
+                    <?php endforeach; ?>
+
+                </ul>
+            </li>
+            <li class="has_sub">
+                <a href="#" class="waves-effect"><i class="fa fa-gear"></i> <span> General </span> </a>
+                <ul class="list-unstyled">
+                    <li><a href="<?php echo e(url('admin/contact')); ?>">Contact Emails</a></li>
+                    <li><a href="<?php echo e(url('admin/support')); ?>">Support Emails</a></li>
+                    <li><a href="<?php echo e(url('admin/office')); ?>">Office</a></li>
+                    <li><a href="<?php echo e(url('admin/country')); ?>">Country</a></li>
+                    <?php /*<li><a href="<?php echo e(url('admin/industry')); ?>">Industry</a></li>*/ ?>
+                    <?php /*<li><a href="<?php echo e(url('admin/product-type')); ?>">Product Type</a></li>*/ ?>
+                </ul>
+            </li>
+
+            <?php /*<li><a href="<?php echo e(url('admin/solution-type')); ?>"><i class="ti-layout-cta-left"></i> Solution Catalog</a></li>*/ ?>
+            <li><a href="<?php echo e(url('admin/verticals')); ?>"><i class="fa fa-columns"></i> Verticals</a></li>
+            <li><a href="<?php echo e(url('admin/products')); ?>"><i class="fa fa-product-hunt"></i> Products</a></li>
+            <li><a href="<?php echo e(url('admin/tags')); ?>"><i class="fa fa-link"></i> Tags</a></li>
+
+
+            <li><a href="<?php echo e(url('admin/partners')); ?>"><i class="fa fa-handshake-o"></i>Partners</a></li>
+
+            <li class="has_sub">
+                <a href="#" class="waves-effect"><i class="fa fa-video-camera"></i> <span> Experience Centre </span> </a>
+                <ul class="list-unstyled">
+                    <li><a href="<?php echo e(url('admin/category')); ?>">Category</a></li>
+                    <li><a href="<?php echo e(url('admin/experience-centre')); ?>">Experience Centre</a></li>
+                </ul>
+            </li>
+            <li><a href="<?php echo e(url('admin/news')); ?>"><i class="fa  fa-newspaper-o"></i>News & Events</a></li>
+
+            <?php /*<li><a href="<?php echo e(url('admin/providers')); ?>"><i class="fa fa-slideshare"></i>Providers</a></li>*/ ?>
+
+            <?php /*<li><a href="<?php echo e(url('admin/solutionss')); ?>"><i class="fa   fa-sitemap"></i>Solutions</a></li>  */ ?>
+            <li><a href="<?php echo e(url('admin/solutions')); ?>"><i class="fa   fa-sitemap"></i>Solutions</a></li>
+
+            <li><a href="<?php echo e(url('admin/ads')); ?>"><i class="fa  fa-picture-o"></i>Ads</a></li>
+            <li><a href="<?php echo e(url('admin/testimonials')); ?>"><i class="fa  fa-quote-left"></i>Testimonials</a></li>
+            <li><a href="<?php echo e(url('admin/roles')); ?>"><i class="fa fa-user-secret"></i>Roles & Permission</a></li>
+            <li><a href="<?php echo e(url('admin/users')); ?>"><i class="fa fa-user-plus"></i>Users</a></li>
+
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>

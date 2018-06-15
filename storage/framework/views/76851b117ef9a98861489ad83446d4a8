@@ -1,0 +1,42 @@
+<div class="row lanMrag">
+    <div class="col-xs-12 col-sm-8 col-md-8 ">
+        <h1><?php echo e($product->getName()); ?></h1>
+
+        <h2><?php echo e($product->getVendor()); ?></h2>
+        <p><?php echo $product->getDescription(); ?></p>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4">
+
+        <div id="myCarousel" class="vertical-slider carousel vertical slide col-md-12" data-ride="carousel">
+            <br />
+            <!-- Carousel items -->
+            <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                <!-- Bottom Carousel Indicators -->
+                <ol class="carousel-indicators">
+                    <?php foreach($product->getLandingProductImages() as $key=>$productImage): ?>
+                        <li data-target="#quote-carousel" data-slide-to="<?php echo e($key); ?>" class="<?=$key==0?'active':''?>"></li>
+                    <?php endforeach; ?>
+                    <?php /*<li data-target="#quote-carousel" data-slide-to="0" class="active"></li>*/ ?>
+                    <?php /*<li data-target="#quote-carousel" data-slide-to="1"></li>*/ ?>
+                    <?php /*<li data-target="#quote-carousel" data-slide-to="2"></li>*/ ?>
+                </ol>
+
+                <!-- Carousel Slides / Quotes -->
+                <div class="carousel-inner">
+
+                    <?php foreach($product->getLandingProductImages() as $key=>$productImage): ?>
+                        <div class="item <?=$key==0?'active':''?>">
+                            <blockquote>
+                                <img src="<?php echo e(asset($productImage->getMediaUrl())); ?>" class="thumbnail" alt="Image" />
+                            </blockquote>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <?php /*<!-- Carousel Buttons Next/Prev -->*/ ?>
+                <?php /*<a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>*/ ?>
+                <?php /*<a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>*/ ?>
+            </div>
+        </div>
+    </div>
+</div>

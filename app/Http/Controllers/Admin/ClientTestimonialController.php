@@ -1,0 +1,74 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: MyPc
+ * Date: 14/02/2018
+ * Time: 10:41 AM
+ */
+
+namespace App\Http\Controllers\Admin;
+
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\ClientTestimonialService;
+use App\Services\CheckPermissionService;
+use Validator;
+class ClientTestimonialController extends Controller
+{
+    private $clientTestimonialService,$checkPermissionService;
+
+    public function __construct(ClientTestimonialService $clientTestimonialService,CheckPermissionService $checkPermissionService){
+        $this->clientTestimonialService = $clientTestimonialService;
+        $this->checkPermissionService = $checkPermissionService;
+    }
+
+    public function index(){
+        $testimonials = $this->clientTestimonialService->getAllTestimonials();
+        $isAuthorize = $this->checkPermissionService->checkPermission();
+        return view('admin.testimonials',compact('testimonials','isAuthorize'));
+    }
+
+    public function create(){
+        return view('admin.testimonial');
+    }
+
+    public function store(Request $request)
+    {
+        Validator::make($request->all(),[
+            "name" => "required",
+            "image" => 'required',
+            "testimonial" => "required",
+            "companyName" => "required",
+            "designation" => "required"
+        ]);
+        $result = $this->clientTestimonialService->addTestimonial($request);
+        if($result){
+            return redirect()->route('admin.testimonials.index')->with('success-msg', 'Testimonials added successfully.');
+        }else{
+            return redirect()->route('admin.testimonials.index')->with('error-msg', 'Please check the form and submit again.');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        Validator::make($request->all(),[
+            "name" => "required",
+            "testimonial" => "required",
+            "companyName" => "required",
+            "designation" => "required"
+        ]);
+        $result = $this->clientTestimonialService->updateTestimonial($request, $id);
+        if($result){
+            return redirect()->route('admin.testimonials.edit',['testimonials'=>$id])->with('success-msg', ' Testimonials updated successfully.');
+        }else{
+            return redirect()->route('admin.testimonials.edit',['testimonials'=>$id])->with('error-msg', 'Something went wrong.');
+        }
+    }
+
+    public function edit($id){
+        $testimonial = $this->clientTestimonialService->getActiveTestimonial($id);
+        return view('admin.testimonial',compact('testimonial'));
+    }
+
+}
