@@ -26,18 +26,18 @@ class ScenarioProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productScenarioId", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productScenarioId", fetch="EAGER",cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $productId;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="ScenarioDetail",fetch="EAGER", inversedBy="scenarioProductId")
+     * @ORM\ManyToOne(targetEntity="ScenarioDetail",fetch="EAGER", inversedBy="scenarioProductId",cascade={"persist"})
      * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
      */
     private $scenarioId;
-
+ 
 
     /**
      * @ORM\Column(type="integer")

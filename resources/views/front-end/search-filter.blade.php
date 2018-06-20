@@ -47,7 +47,8 @@
                     <hr/>
                 @foreach($slugDatas['product'] as $slug)
                             <div class="search-bottom">
-                                <a href="{{route('solution.showProduct',['id'=>$slug->getId()])}}"><strong>  {{$slug->getName()}}</strong></a>
+                                {{--$slug->getProductSlug()->getUrlSlug() Amit 18-06-18 --}}
+                                <a href="{{route('solution.showProduct',['id'=>$slug->getProductSlug()->getUrlSlug()])}}"><strong>  {{$slug->getName()}}</strong></a>
                                 <p>{!!\Illuminate\Support\Str::words(strip_tags($slug->getDescription()),40,'...')!!}</p>
                             </div>
                         @endforeach

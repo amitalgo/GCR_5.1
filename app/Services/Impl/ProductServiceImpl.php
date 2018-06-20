@@ -292,4 +292,14 @@ class ProductServiceImpl implements ProductService{
         return true;
      }
 
+     //Amit 18-06-2018
+    public function getProductBySlug($slug){
+         return $this->productRepo->getProductBySlug($slug);
+    }
+
+    //Amit 20-06-2018
+    public function getAllProductSlug(){
+        return $this->productRepo->getAllProductSlug();
+    }
+
 }

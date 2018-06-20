@@ -113,8 +113,12 @@ class VerticalRepo
     }
 
 
-    //Amit 13-06-2018
-    public function tagGenerator($data,$id){
-
+    //Amit 20-06-2018
+    public function removeData($datas){
+        foreach ($datas as $data){
+            $this->em->remove($data);
+        }
+        $this->em->flush();
+        return true;
     }
 }

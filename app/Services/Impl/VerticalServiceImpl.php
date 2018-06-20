@@ -8,8 +8,7 @@
 
 namespace App\Services\Impl;
 
-
-
+use App\Entities\ProductSlug;
 use App\Entities\ScenarioTitleSlug;
 use App\Entities\Tag;
 use App\Services\TagService;
@@ -18,20 +17,24 @@ use App\Services\VerticalService;
 use App\Services\FileSystemService;
 use App\Repositories\VerticalRepo;
 use App\Services\Impl\UploadService;
+use App\Repositories\ProductRepo;
 use App\Entities\ScenarioDetailSlug;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use App\Services\ProductService;
 
 class VerticalServiceImpl implements VerticalService
 {
 
     private $uploadService,$fileSystemService,$tagService;
     private static $verticalRepo;
-    public function __construct(VerticalRepo $verticalRepo,UploadService $uploadService, TagService $tagService ,FileSystemService $fileSystemService)
+    public function __construct(VerticalRepo $verticalRepo,ProductRepo $productRepo,ProductService $productService,UploadService $uploadService, TagService $tagService ,FileSystemService $fileSystemService)
     {
         self::$verticalRepo = $verticalRepo;
         $this->uploadService = $uploadService;
         $this->fileSystemService = $fileSystemService;
         $this->tagService=$tagService;
+        $this->productService=$productService; //18-06-18
     }
 
     public function getAllActiveVerticals()
@@ -55,6 +58,7 @@ class VerticalServiceImpl implements VerticalService
     }
 
     public function getVerticalBySolutionAndSolutionIn($id, $data){
+
         $vertical = self::$verticalRepo->getVertical($id);
 
             if(null!=$data['solution-tag']){
@@ -170,9 +174,46 @@ class VerticalServiceImpl implements VerticalService
         return self::$verticalRepo->getScenarioDetailBySlug($slug);
     }
 
+    //Amit 20-06-2018
+    public function clean($string) {
+        $string = str_replace(' ', '-', trim($string)); // Replaces all spaces with hyphens.
+        $string = preg_replace('/[^A-Za-z0-9-]/', '', $string); // Removes special chars.
+
+        return strtolower(preg_replace('/-+/', '-', $string)); // Replaces multiple hyphens with single one.
+    }
+
     //Amit 13-06-18
     public function tagGenerator(){
 
+        $productSlug = $this->productService->getAllProductSlug();
+        $flag=false;
+        if(!empty($productSlug)){
+            $flag = self::$verticalRepo->removeData($productSlug); //To First Remove all Slug and later insert the new one
+        }else{
+            $flag = true;
+        }
+
+        if($flag){
+            $products = $this->productService->getAllProducts();
+
+            foreach($products as $product){
+            dd($product);
+                if($product->getproductSlug()==null){
+                    $productSlug = new ProductSlug();
+                    $productSlug->setProductId($product);
+                    //       $productSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($product->getName   ()))));
+                    $productSlug->setUrlSlug($this->clean($product->getName()));
+                    $productSlug->setUpdDate(new \DateTime());
+                    self::$verticalRepo->saveOrUpdate($productSlug);
+                }
+            }
+        }
+
+        exit;
+
+        $verticals = self::$verticalRepo->getAllVerticals();
+
+        // To generate Tags Slug
         $activeTagsLists = $this->tagService->getActiveTags();
 
         foreach($activeTagsLists as $activeTagsList){
@@ -181,14 +222,13 @@ class VerticalServiceImpl implements VerticalService
                 $tagList->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($activeTagsList->getTagName   ()))));
                 self::$verticalRepo->saveOrUpdate($tagList);
             }
-
         }
-
-        $verticals = self::$verticalRepo->getAllVerticals();
 
         foreach($verticals as $vertical){
 
             foreach($vertical->getscenarioDetail() as $de){
+
+                //To generate ScenarioDetailSlug
                 if($de->getscenarioDetailSlug()==null){
                     $verticalDetailSlug=new ScenarioDetailSlug();
                     $verticalDetailSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($de->getName()))));
@@ -197,8 +237,22 @@ class VerticalServiceImpl implements VerticalService
                     $de->setscenarioDetailSlug($verticalDetailSlug);
 
                 }
+
+                //To generate ProductSlug
+//                foreach($de->getscenarioProductId() as $product){
+//
+//                    if($product->getproductId()->getproductSlug()==null){
+//                        $productSlug = new ProductSlug();
+//                        $productSlug->setProductId($product->getProductId());
+//                        $productSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($product->getproductId()->getName   ()))));
+//                        $productSlug->setUpdDate(new \DateTime());
+//                        $product->getproductId()->setproductSlug($productSlug);
+//
+//                    }
+//                }
             }
 
+            //To generate ScenarioTitleSlug
             if($vertical->getscenarioTitleSlug()==null){
                 $verticalTitleSlug = new ScenarioTitleSlug();
                 $verticalTitleSlug->setTitleId($vertical);
@@ -209,6 +263,10 @@ class VerticalServiceImpl implements VerticalService
         }
 
         return self::$verticalRepo->saveOrUpdate($verticals);
+    }
+
+    public function test(){
+        return 'hiee';
     }
 
 }

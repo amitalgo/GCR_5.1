@@ -88,7 +88,7 @@ class ScenarioDetail
     private $scenarioDetailSlug;
 
     /**
-     * @ORM\OneToMany(targetEntity="ScenarioProduct", mappedBy="scenarioId",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ScenarioProduct", mappedBy="scenarioId", fetch="EAGER",cascade={"persist"})
      */
     private $scenarioProductId;
 

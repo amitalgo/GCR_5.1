@@ -96,10 +96,15 @@ class Product
     private $productInquiryId;
 
     /**
-     *  
+     *
      * @ORM\OneToMany(targetEntity="TagProduct", mappedBy="productId",cascade={"persist"}, fetch="EAGER")
      */
     private $productTagId;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $deleted;
 
 
 //    /**
@@ -349,8 +354,8 @@ class Product
     public function getProductTag(){
         $productTag = [];
         foreach ($this->productTagId as $productTagId) {
-            $productTag[] = $productTagId->getTagId()->getTagName();   
-        }   
+            $productTag[] = $productTagId->getTagId()->getTagName();
+        }
         return implode(',', $productTag);
     }
 
@@ -396,11 +401,11 @@ class Product
     }
 
     public function getProductParent(){
-       $productScenario=[];
-       foreach ($this->productScenarioId as $scenarioId){
-           $productScenario[] = $scenarioId->getScenarioId()->getName();
-       }
-       return implode(',',$productScenario);
+        $productScenario=[];
+        foreach ($this->productScenarioId as $scenarioId){
+            $productScenario[] = $scenarioId->getScenarioId()->getName();
+        }
+        return implode(',',$productScenario);
     }
 
     public function getAttachments(){

@@ -46,7 +46,8 @@
                     <hr/>
                 <?php foreach($slugDatas['product'] as $slug): ?>
                             <div class="search-bottom">
-                                <a href="<?php echo e(route('solution.showProduct',['id'=>$slug->getId()])); ?>"><strong>  <?php echo e($slug->getName()); ?></strong></a>
+                                <?php /*$slug->getProductSlug()->getUrlSlug() Amit 18-06-18 */ ?>
+                                <a href="<?php echo e(route('solution.showProduct',['id'=>$slug->getProductSlug()->getUrlSlug()])); ?>"><strong>  <?php echo e($slug->getName()); ?></strong></a>
                                 <p><?php echo \Illuminate\Support\Str::words(strip_tags($slug->getDescription()),40,'...'); ?></p>
                             </div>
                         <?php endforeach; ?>

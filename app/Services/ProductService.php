@@ -34,4 +34,10 @@ interface ProductService
     public function getProductInquiry($inquiryId);
 
     public function getProductByIdIn($data);
+
+    //Amit 18-06-2018
+    public function getProductBySlug($slug);
+
+    //Amit 20-06-2018
+    public function getAllProductSlug();
 }

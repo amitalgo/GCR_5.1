@@ -153,7 +153,11 @@ class SolutionsController extends Controller
         $slugDatas = $this->solutionService->searchfilter($slug);
         return view('front-end.search-filter',compact('banner','content','abouts','ads','slugDatas','slug'));
     }
-    public function showProduct($id){
+    public function showProduct($slug){
+
+        $productDetail=$this->productService->getProductBySlug($slug);
+
+        $id=$productDetail->getproductid()->getId();
         $content = $this->content;
         $banner = $this->banner;
         $abouts = $this->abouts;

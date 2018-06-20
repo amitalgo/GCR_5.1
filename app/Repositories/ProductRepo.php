@@ -11,6 +11,7 @@ namespace App\Repositories;
 
 use App\Entities\Product;
 use App\Entities\ProductImage;
+use App\Entities\ProductSlug;
 use App\Entities\ProductSolutionX;
 use Doctrine\ORM\EntityManager;
 
@@ -52,6 +53,16 @@ class ProductRepo{
     }
     public function getAllActiveProductsByParentId($id){
         return $this->em->getRepository(ProductSolutionX::class)->findBy(['productSolutionTypeId'=>$id,'isActive'=>1,'deleted'=>0]);
+    }
+
+    //amit
+    public function getProductBySlug($slug){
+        return $this->em->getRepository(ProductSlug::class)->findOneBy(array('urlSlug'=>$slug));
+    }
+
+    //Amit 20-06-2018
+    public function getAllProductSlug(){
+        return $this->em->getRepository(ProductSlug::class)->findAll();
     }
 
 }
