@@ -65,4 +65,8 @@ class ProductRepo{
         return $this->em->getRepository(ProductSlug::class)->findAll();
     }
 
+    public function getProductSlugById($id){
+        return $this->em->getRepository(ProductSlug::class)->find($id);
+    }
+
 }

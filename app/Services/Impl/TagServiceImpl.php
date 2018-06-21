@@ -57,6 +57,7 @@ class TagServiceImpl implements TagService
         $tag->setCreatedAt(new \DateTime());
         $tag->setUpdatedAt(new \DateTime());
         $tag->setDeleted(0);
+        $tag->setUrlSlug($data['tagSlug']);
         return self::$tagRepo->tagAdd($tag);
     }
 

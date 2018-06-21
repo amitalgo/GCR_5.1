@@ -40,4 +40,7 @@ interface ProductService
 
     //Amit 20-06-2018
     public function getAllProductSlug();
+
+    //Amit 21-06-2018
+    public function getProductSlugById($id);
 }

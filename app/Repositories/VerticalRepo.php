@@ -13,7 +13,7 @@ use App\Entities\ScenarioDetailSlug;
 use App\Entities\ScenarioTitle;
 use App\Entities\VerticalImages;
 use App\Entities\TagCategory;
-use DoctrineProxies\__CG__\App\Entities\ScenarioTitleSlug;
+use App\Entities\ScenarioTitleSlug;
 use LaravelDoctrine\ORM\Facades\Doctrine;
 use Doctrine\ORM\EntityManagerInterface;
 class VerticalRepo
@@ -112,13 +112,14 @@ class VerticalRepo
         return $this->em->getRepository(ScenarioDetailSlug::class)->findOneBy(array('urlSlug'=>$slug));
     }
 
-
-    //Amit 20-06-2018
-    public function removeData($datas){
-        foreach ($datas as $data){
-            $this->em->remove($data);
-        }
-        $this->em->flush();
-        return true;
+    //Amit 21-06-2018
+    public function getscenarioDetailSlugById($scenarioDetailSlugId){
+        return $this->em->getRepository(ScenarioDetailSlug::class)->find($scenarioDetailSlugId);
     }
+
+    //Amit 21-06-2018
+    public function getscenarioTitleDetailsSlugById($verticalTitleSlugId){
+        return $this->em->getRepository(ScenarioTitleSlug::class)->find($verticalTitleSlugId);
+    }
+
 }

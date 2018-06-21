@@ -302,4 +302,8 @@ class ProductServiceImpl implements ProductService{
         return $this->productRepo->getAllProductSlug();
     }
 
+    public function getProductSlugById($id){
+        return $this->productRepo->getProductSlugById($id);
+    }
+
 }

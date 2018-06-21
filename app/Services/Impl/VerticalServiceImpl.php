@@ -185,33 +185,23 @@ class VerticalServiceImpl implements VerticalService
     //Amit 13-06-18
     public function tagGenerator(){
 
-        $productSlug = $this->productService->getAllProductSlug();
-        $flag=false;
-        if(!empty($productSlug)){
-            $flag = self::$verticalRepo->removeData($productSlug); //To First Remove all Slug and later insert the new one
-        }else{
-            $flag = true;
-        }
+        //To Generate Product Slug
+        $products = $this->productService->getAllProducts();
 
-        if($flag){
-            $products = $this->productService->getAllProducts();
+        foreach($products as $product){
 
-            foreach($products as $product){
-            dd($product);
-                if($product->getproductSlug()==null){
-                    $productSlug = new ProductSlug();
-                    $productSlug->setProductId($product);
-                    //       $productSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($product->getName   ()))));
-                    $productSlug->setUrlSlug($this->clean($product->getName()));
-                    $productSlug->setUpdDate(new \DateTime());
-                    self::$verticalRepo->saveOrUpdate($productSlug);
-                }
+            if($product->getproductSlug()!=null) {
+                $productSlugId = $product->getproductSlug()->getId();
+                $productSlug = $this->productService->getProductSlugById($productSlugId);
+            }else{
+                $productSlug = new ProductSlug();
             }
+                $productSlug->setProductId($product);
+                //       $productSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($product->getName   ()))));
+                $productSlug->setUrlSlug($this->clean($product->getName()));
+                $productSlug->setUpdDate(new \DateTime());
+                self::$verticalRepo->saveOrUpdate($productSlug);
         }
-
-        exit;
-
-        $verticals = self::$verticalRepo->getAllVerticals();
 
         // To generate Tags Slug
         $activeTagsLists = $this->tagService->getActiveTags();
@@ -224,19 +214,24 @@ class VerticalServiceImpl implements VerticalService
             }
         }
 
+        $verticals = self::$verticalRepo->getAllVerticals();
+
         foreach($verticals as $vertical){
 
             foreach($vertical->getscenarioDetail() as $de){
 
                 //To generate ScenarioDetailSlug
-                if($de->getscenarioDetailSlug()==null){
+                if($de->getscenarioDetailSlug()!=null){
+                    $scenarioDetailSlugId=$de->getscenarioDetailSlug()->getId();
+                    $verticalDetailSlug=self::$verticalRepo->getscenarioDetailSlugById($scenarioDetailSlugId);
+                }else{
                     $verticalDetailSlug=new ScenarioDetailSlug();
-                    $verticalDetailSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($de->getName()))));
-                    $verticalDetailSlug->setScenarioId($de);
-                    $verticalDetailSlug->setUpdDate(new \DateTime());
-                    $de->setscenarioDetailSlug($verticalDetailSlug);
-
                 }
+
+                $verticalDetailSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($de->getName()))));
+                $verticalDetailSlug->setScenarioId($de);
+                $verticalDetailSlug->setUpdDate(new \DateTime());
+                $de->setscenarioDetailSlug($verticalDetailSlug);
 
                 //To generate ProductSlug
 //                foreach($de->getscenarioProductId() as $product){
@@ -253,20 +248,20 @@ class VerticalServiceImpl implements VerticalService
             }
 
             //To generate ScenarioTitleSlug
-            if($vertical->getscenarioTitleSlug()==null){
+            if($vertical->getscenarioTitleSlug()!=null){
+                $verticalTitleSlugId=$vertical->getscenarioTitleSlug()->getId();
+                $verticalTitleSlug=self::$verticalRepo->getscenarioTitleDetailsSlugById($verticalTitleSlugId);
+            }else{
                 $verticalTitleSlug = new ScenarioTitleSlug();
-                $verticalTitleSlug->setTitleId($vertical);
-                $verticalTitleSlug->setUpdDate(new \DateTime());
-                $verticalTitleSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($vertical->getName()))));
-                $vertical->setscenarioTitleSlug($verticalTitleSlug);
             }
+
+            $verticalTitleSlug->setTitleId($vertical);
+            $verticalTitleSlug->setUpdDate(new \DateTime());
+            $verticalTitleSlug->setUrlSlug(strtolower(preg_replace('/\s+/','-',trim($vertical->getName()))));
+            $vertical->setscenarioTitleSlug($verticalTitleSlug);
         }
 
         return self::$verticalRepo->saveOrUpdate($verticals);
-    }
-
-    public function test(){
-        return 'hiee';
     }
 
 }

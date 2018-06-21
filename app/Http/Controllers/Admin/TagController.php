@@ -47,6 +47,9 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        //Amit 21-06-18
+        $request['tagSlug']=strtolower(preg_replace('/\s+/','-',trim($request->title)));
+
         Validator::make($request->all(),[
             "title" => "required"
         ]);
@@ -91,6 +94,9 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Amit 21-06-18
+        $request['tagSlug']=strtolower(preg_replace('/\s+/','-',trim($request->title)));
+
         Validator::make($request->all(),[
             "title" => "required"
         ]);
