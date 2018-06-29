@@ -55,6 +55,7 @@
             <li><a href="<?php echo e(route('admin.landingpages.index')); ?>"><i class="fa fa-user-plus"></i>Landing Page</a></li>
             <li><a href="<?php echo e(route('admin.landingbanners.index')); ?>"><i class="fa fa-user-plus"></i>Landing Banners</a></li>
             <li><a href="<?php echo e(route('admin.landingproducts.index')); ?>"><i class="fa fa-user-plus"></i>Landing Products</a></li>
+            <li><a href="<?php echo e(route('admin.changepassword')); ?>"><i class="fa fa-user-plus"></i>Change Password</a></li>
 
 
         </ul>

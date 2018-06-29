@@ -11,6 +11,8 @@ namespace App\Repositories;
 use App\Entities\User;
 use App\Entities\UserRole;
 use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Support\Facades\Hash;
+
 class UserRepo
 {
     protected $em;
@@ -51,5 +53,9 @@ class UserRepo
     public function updateUser($data)
     {
         // TODO: Implement updateUser() method.
+    }
+
+    public function chkPass($data){
+        return $this->em->getRepository(User::class)->findby(['password'=>Hash::check($data['oldPass'])]);
     }
 }

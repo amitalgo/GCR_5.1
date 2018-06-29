@@ -16,4 +16,5 @@ interface UserService
     public function getUserById($id);
     public function save($data);
     public function updateUser($data,$id);
+    public function chkPass($data);
 }

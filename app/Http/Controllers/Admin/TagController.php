@@ -94,7 +94,7 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Amit 21-06-18
+        //Amit 21-06-18/
         $request['tagSlug']=strtolower(preg_replace('/\s+/','-',trim($request->title)));
 
         Validator::make($request->all(),[
@@ -114,8 +114,7 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         //
     }
 }

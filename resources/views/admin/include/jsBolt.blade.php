@@ -352,4 +352,36 @@ wizard initialization
         });
 
     });
+
+    //Amit Change Password 290618
+    $('document').ready(function(){
+
+        $("body").on('blur','#oldPass',function(){
+            $oldPass = $(this).val();
+            $email = $('#useremail').val();
+            $id = $('#userid').val();
+            $token = $(this).data('token');
+
+            $userDetails = {"oldPass":$oldPass,"email":$email,"id":$id};
+
+//          CSRF protection
+            $.ajaxSetup(
+                {
+                    headers:
+                        {
+                            'X-CSRF-Token': $token
+                        }
+                });
+
+            $.ajax({
+                url : "{{URL::route('admin.chkoldPass')}}",
+                data : $userDetails,
+                type: 'post',
+                success:function(xyz){
+                    console.log(xyz);
+                }
+            });
+
+        });
+    });
 </script>

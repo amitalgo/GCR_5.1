@@ -63,6 +63,10 @@ Route::group(['prefix'=>'admin'],function(){
     Route::post('password/reset','Admin\ResetPasswordController@reset');
     Route::get('password/reset/{token}','Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
 
+//    Amit Change Passsword 29-06-18
+    Route::get('changepassword','Admin\ChangePasswordController@index')->name('admin.changepassword');
+    Route::post('/chkoldPass','Admin\ChangePasswordController@chkoldPass')->name('admin.chkoldPass');
+
     Route::group(['middleware'=>'auth:admin'],function(){
     Route::get('/logout','Admin\LoginController@logout')->name('admin.logout');
     Route::post('/logout','Admin\LoginController@getlogout')->name('admin.logout.submit');

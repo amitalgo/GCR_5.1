@@ -90,4 +90,8 @@ class UserServiceImpl implements UserService
         return $this->userRepo->saveUser($user);
 
     }
+
+    public function chkPass($data){
+        return $this->userRepo->chkPass($data);
+    }
 }
