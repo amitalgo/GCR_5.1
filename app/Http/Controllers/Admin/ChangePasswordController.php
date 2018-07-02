@@ -33,10 +33,36 @@ class ChangePasswordController extends Controller
     }
 
     public function chkoldPass(Request $request){
-        print_r(Hash::check($request['oldPass']));
+
+        $id = $request['id'];
+
+        $res = $this->userService->getUserById($id);
+        $hashedPassword=$res->getpassword();
+        $oldPassword = $request['oldPass'];
+
+        if (Hash::check($oldPassword, $hashedPassword))
+        {
+            echo 1;
+        }else{
+            echo 0;
+        }
         exit;
-        $result = $this->userService->chkPass($request);
-        echo $result;
+    }
+
+    public function update(Request $request){
+        $this->validate($request,[
+            "newPass" => "min:6|required_with:cNewPass|same:cNewPass",
+            "cNewPass"=>"min:6",
+        ]);
+
+        $result = $this->userService->changepassword($request);
+        if($result){
+            return redirect()->route('admin.changepassword')->with('success-msg', ' Password updated successfully.');
+        }else{
+            return redirect()->route('admin.changepassword')->with('error-msg', 'Something went wrong.');
+        }
+
+        exit;
 
     }
 }

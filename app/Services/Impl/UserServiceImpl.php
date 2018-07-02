@@ -15,6 +15,7 @@ use App\Services\UserService;
 use App\Services\RoleService;
 use App\Repositories\UserRepo;
 use App\Services\Impl\UploadService;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserServiceImpl implements UserService
@@ -93,5 +94,11 @@ class UserServiceImpl implements UserService
 
     public function chkPass($data){
         return $this->userRepo->chkPass($data);
+    }
+
+    public function changepassword($data){
+        $user = $this->userRepo->getUserById($data['userid']);
+        $user->setPassword(Hash::make($data['cNewPass']));
+        return $this->userRepo->saveUser($user);
     }
 }

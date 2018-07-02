@@ -17,4 +17,5 @@ interface UserService
     public function save($data);
     public function updateUser($data,$id);
     public function chkPass($data);
+    public function changepassword($data);
 }

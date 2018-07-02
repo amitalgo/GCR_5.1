@@ -16,14 +16,16 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-box">
-                    <form class="form-horizontal" role="form" id="addForm" action="@if(isset($partner)) {{route('admin.partners.update',['partners' => $partner->getId()] )}} @else{{route('admin.partners.store')}} @endif" method="POST" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" id="addForm" action="{{route('admin.password.update')}}" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Enter Old Password</label>
-                                        <input class="form-control" required="required" placeholder="Enter Old Password" type="text" name="title" data-token="<?php echo e(csrf_token()); ?>" id="oldPass" value="@if(isset($partner)){{$partner->getTitle()}} @endif">
+                                        <input class="form-control" required="required" placeholder="Enter Old Password" type="password" name="oldPass" data-token="<?php echo e(csrf_token()); ?>" id="oldPass" value="@if(isset($partner)){{$partner->getTitle()}} @endif">
                                     </div>
+                                    <div class="alert alert-danger oldPassChkErr" style="padding:5px 15px;display:none;">Error</div>
                                 </div>
                             </div>
 
@@ -31,7 +33,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Enter New Password</label>
-                                        <input class="form-control" required="required" placeholder="Enter New Password" type="text" name="title"  value="@if(isset($partner)){{$partner->getTitle()}} @endif">
+                                        <input class="form-control" required="required" placeholder="Enter New Password" type="text" name="newPass" id="newPass"  value="@if(isset($partner)){{$partner->getTitle()}} @endif" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +44,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Confirm New Password</label>
-                                        <input class="form-control" required="required" placeholder="Confirm New Password" type="text" name="title"  value="@if(isset($partner)){{$partner->getTitle()}} @endif">
+                                        <input class="form-control" required="required" placeholder="Confirm New Password" type="text" name="cNewPass" id="cNewPass"  value="@if(isset($partner)){{$partner->getTitle()}} @endif" readonly>
                                     </div>
                                 </div>
                             </div>

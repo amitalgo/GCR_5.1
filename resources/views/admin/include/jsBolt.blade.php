@@ -356,7 +356,7 @@ wizard initialization
     //Amit Change Password 290618
     $('document').ready(function(){
 
-        $("body").on('blur','#oldPass',function(){
+        $("body").on('keypress','#oldPass',function(){
             $oldPass = $(this).val();
             $email = $('#useremail').val();
             $id = $('#userid').val();
@@ -379,6 +379,17 @@ wizard initialization
                 type: 'post',
                 success:function(xyz){
                     console.log(xyz);
+                    if(xyz==1){
+                        $(".oldPassChkErr").css("display","none");
+                        $('#newPass').prop("readonly",false);
+                        $('#cNewPass').prop("readonly", false);
+                    }else{
+                        $(".oldPassChkErr").html("Wrong Old Password");
+                        $(".oldPassChkErr").css('display','block');
+                        $('#newPass').prop("readonly",true);
+                        $('#cNewPass').prop("readonly", true);
+                        $(this).value('');
+                    }
                 }
             });
 

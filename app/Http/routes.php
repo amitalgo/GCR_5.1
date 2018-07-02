@@ -66,6 +66,8 @@ Route::group(['prefix'=>'admin'],function(){
 //    Amit Change Passsword 29-06-18
     Route::get('changepassword','Admin\ChangePasswordController@index')->name('admin.changepassword');
     Route::post('/chkoldPass','Admin\ChangePasswordController@chkoldPass')->name('admin.chkoldPass');
+    Route::post('/changepassword/update','Admin\ChangePasswordController@update')->name('admin.password.update');
+
 
     Route::group(['middleware'=>'auth:admin'],function(){
     Route::get('/logout','Admin\LoginController@logout')->name('admin.logout');
